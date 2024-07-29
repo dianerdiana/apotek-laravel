@@ -13,6 +13,15 @@ return new class extends Migration
     {
         Schema::create('product_transactions', function (Blueprint $table) {
             $table->id();
+            $table->string('address');
+            $table->string('city');
+            $table->string('post_code');
+            $table->string('proof');
+            $table->string('phone_number');
+            $table->boolean('is_paid');
+            $table->integer('total_amount');
+            $table->text('notes');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }
