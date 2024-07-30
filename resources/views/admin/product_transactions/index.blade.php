@@ -1,0 +1,1 @@
+// Menampilkan data transaksi sebagai pemilik atau pembeli
