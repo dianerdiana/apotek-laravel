@@ -48,7 +48,7 @@
                     <div class="mt-4">
                         <x-input-label for="about" :value="__('About')" />
                         <textarea id="about" cols="30" rows="5" class="block mt-1 w-full border-slate-300 rounded-lg"
-                            type="textarea" name="about" :value="old('about')" required autofocus autocomplete="about"></textarea>
+                            type="textarea" name="about" required autofocus autocomplete="about">{{ old('about') }}</textarea>
                         <x-input-error :messages="$errors->get('about')" class="mt-2" />
                     </div>
 

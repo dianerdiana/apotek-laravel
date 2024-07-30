@@ -28,6 +28,9 @@
                                 </p>
                             </div>
                         </div>
+                        <p class="text-base text-slate-500">
+                            {{ $product->category->name }}
+                        </p>
                         <div class="flex flex-row items-center gap-x-3">
                             <a href="{{ route('admin.products.edit', $product) }}"
                                 class="py-3 px-5 font-bold rounded-full text-white bg-indigo-700">
@@ -43,6 +46,9 @@
                         </div>
                     </div>
                 @empty
+                    <p>
+                        Belum ada produk ditambahkan oleh pemilik apotek
+                    </p>
                 @endforelse
             </div>
         </div>
