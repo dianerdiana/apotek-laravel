@@ -16,7 +16,6 @@
             <div class="bg-white flex flex-col gap-y-3 overflow-hidden p-10 shadow-sm sm:rounded-lg">
                 @forelse ($products as $product)
                     <div class="item-card flex flex-row justify-between items-center">
-
                         <div class="flex flex-row items-center gap-x-3">
                             <img src="{{ Storage::url($product->photo) }}" alt="" class="w-[50px] h-[80px]">
                             <div>
