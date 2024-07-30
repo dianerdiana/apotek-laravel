@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Product;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
 
 class ProductController extends Controller
 {
@@ -33,7 +37,35 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'price' => 'required|integer',
+            'category_id' => 'required|integer',
+            'about' => 'required|string',
+            'photo' => 'required|image|mimes:png,jpg,svg,webp',
+        ]);
+
+        DB::beginTransaction();
+        
+        try {
+            if($request->hasFile('photo')) {
+                $photoPath = $request->file('photo')->store('product_photos', 'public');
+                $validated['photo'] = $photoPath;
+            }
+            $validated['slug'] = Str::slug($request->name);
+
+            Product::create($validated);
+            DB::commit();
+            
+            return redirect()->route('admin.products.index');
+        } catch (Exception $e) {
+            DB::rollBack();
+
+            $error = ValidationException::withMessages([
+                'system_error' => ('System Error! ' . $e->getMessage())
+            ]);
+            throw $error;
+        }
     }
 
     /**
