@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
 
 class CategoryController extends Controller
 {
@@ -12,7 +16,11 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $categories = Category::all();
+
+        return view('admin.categories.index', [
+            'categories' => $categories
+        ]);
     }
 
     /**
@@ -20,7 +28,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.categories.create');
     }
 
     /**
@@ -28,7 +36,32 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'icon' => 'required|image|mimes:png,jpg,svg',
+        ]);
+
+        DB::beginTransaction();
+        
+        try {
+            if($request->hasFile('icon')) {
+                $iconPath = $request->file('icon')->store('category_icons', 'public');
+                $validated['icon'] = $iconPath;
+            }
+            $validated['slug'] = Str::slug($request->name);
+
+            Category::create($validated);
+            DB::commit();
+            
+            return redirect()->route('admin.categories.index');
+        } catch (Exception $e) {
+            DB::rollBack();
+
+            $error = ValidationException::withMessages([
+                'system_error' => ('System Error! ' . $e->getMessage())
+            ]);
+            throw $error;
+        }
     }
 
     /**
