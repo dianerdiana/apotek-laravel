@@ -21,7 +21,8 @@
                             {{ $category->name }}
                         </h3>
                         <div class="flex flex-row items-center gap-x-3">
-                            <a href="#" class="py-3 px-5 font-bold rounded-full text-white bg-indigo-700">
+                            <a href="{{ route('admin.categories.edit', $category) }}"
+                                class="py-3 px-5 font-bold rounded-full text-white bg-indigo-700">
                                 Edit
                             </a>
                             <form method="POST" action="{{ route('admin.categories.destroy', $category) }}">
