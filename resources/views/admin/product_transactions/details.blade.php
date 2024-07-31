@@ -138,13 +138,19 @@
 
         <hr class="my-3">
         @role('owner')
-          <form method="POST" action="{{ route('product_transactions.update', 1) }}">
-            @csrf
-            @method('PUT')
-            <button class="py-3 px-5 font-bold rounded-full text-white bg-indigo-700">
-              Approve Order
-            </button>
-          </form>
+          @if ($productTransaction->is_paid)
+            <a href="" class="py-3 px-5 font-bold rounded-full text-white bg-indigo-700 w-fit">
+              Whatsapp Customer
+            </a>
+          @else
+            <form method="POST" action="{{ route('product_transactions.update', $productTransaction) }}">
+              @csrf
+              @method('PUT')
+              <button class="py-3 px-5 font-bold rounded-full text-white bg-indigo-700">
+                Approve Order
+              </button>
+            </form>
+          @endif
         @endrole
 
         @role('buyer')
