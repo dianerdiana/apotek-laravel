@@ -2,7 +2,7 @@
   <x-slot name="header">
     <div class="flex flex-row justify-between items-center">
       <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        {{ __('Details') }}
+        {{ Auth::user()->hasRole('owner') ? __('Apotek Orders') : __('My Transactions') }}
       </h2>
     </div>
   </x-slot>
@@ -10,7 +10,9 @@
   <div class="py-12">
     <div class="max-w-5xl mx-auto sm:px-6 lg:px-8">
       <div class="bg-white flex flex-col gap-y-3 overflow-hidden p-10 shadow-sm sm:rounded-lg">
+        {{-- @forelse ($products as $product) --}}
         <div class="item-card flex flex-row justify-between items-center">
+
           <div class="flex flex-row items-center gap-x-3">
             <div>
               <p class="text-base text-slate-500">
@@ -32,37 +34,16 @@
           <span class="py-1 px-3 rounded-full bg-orange-500">
             <p class="text-white font-bold text-sm">Pending</p>
           </span>
+          <div class="flex flex-row items-center gap-x-3">
+            <a href="{{ route('product_transactions.show', 1) }}"
+              class="py-3 px-5 font-bold rounded-full text-white bg-indigo-700">
+              View Details
+            </a>
+          </div>
         </div>
         <hr class="my-3">
-        <h3 class="text-2xl font-bold text-indigo-950">
-          List of Items
-        </h3>
-        <div class="grid grid-cols-4 gap-x-10">
-          <div class="flex flex-col gap-y-5 col-span-2">
-            <div class="item-card flex flex-row justify-between items-center">
-              <div class="flex flex-row items-center gap-x-3">
-                <img src="#" alt="" class="w-[50px] h-[80px]">
-                <div>
-                  <h3 class="text-2xl font-bold text-indigo-950">
-                    Produk
-                  </h3>
-                  <p class="text-base text-slate-500">
-                    Rp. Harga
-                  </p>
-                </div>
-              </div>
-              <p class="text-base text-slate-500">
-                Vitamins
-              </p>
-            </div>
-          </div>
-          <div class="flex flex-col gap-y-5 col-span-2">
-            <img src="#" alt="" class="w-[300px] h-[400px] bg-red-400">
-          </div>
-        </div>
-        <h3 class="text-2xl font-bold text-indigo-950">
-          Details of Payment
-        </h3>
+        {{-- @empty --}}
+        {{-- @endforelse --}}
       </div>
     </div>
   </div>
