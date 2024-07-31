@@ -17,7 +17,7 @@
                 Total Transaksi
               </p>
               <h3 class="text-2xl font-bold text-indigo-950">
-                Rp. 20.000
+                Rp. {{ $productTransaction->total_amount }}
               </h3>
             </div>
           </div>
@@ -26,12 +26,18 @@
               Tanggal
             </p>
             <h3 class="text-2xl font-bold text-indigo-950">
-              25 Feb 2024
+              {{ $productTransaction->created_at }}
             </h3>
           </div>
-          <span class="py-1 px-3 rounded-full bg-orange-500">
-            <p class="text-white font-bold text-sm">Pending</p>
-          </span>
+          @if ($productTransaction->is_paid)
+            <span class="py-1 px-3 rounded-full bg-green-500">
+              <p class="text-white font-bold text-sm">Success</p>
+            </span>
+          @else
+            <span class="py-1 px-3 rounded-full bg-orange-500">
+              <p class="text-white font-bold text-sm">Pending</p>
+            </span>
+          @endif
         </div>
         <hr class="my-3">
 
@@ -41,28 +47,32 @@
 
         <div class="grid grid-cols-4 gap-x-10 mb-3">
           <div class="flex flex-col gap-y-5 col-span-2">
-            <div class="item-card flex flex-row justify-between items-center">
-              <div class="flex flex-row items-center gap-x-3">
-                <img src="#" alt="" class="w-[50px] h-[80px]">
-                <div>
-                  <h3 class="text-2xl font-bold text-indigo-950">
-                    Produk
-                  </h3>
-                  <p class="text-base text-slate-500">
-                    Rp. Harga
-                  </p>
+            @forelse ($productTransaction->transactionDetails as $transactionDetail)
+              <div class="item-card flex flex-row justify-between items-center">
+                <div class="flex flex-row items-center gap-x-3">
+                  <img src="{{ Storage::url($transactionDetail->product->photo) }}" alt=""
+                    class="w-[50px] h-[80px]">
+                  <div>
+                    <h3 class="text-2xl font-bold text-indigo-950">
+                      {{ $transactionDetail->product->name }}
+                    </h3>
+                    <p class="text-base text-slate-500">
+                      Rp. {{ $transactionDetail->price }}
+                    </p>
+                  </div>
                 </div>
+                <p class="text-base text-slate-500">{{ $transactionDetail->product->category->name }}
+                </p>
               </div>
-              <p class="text-base text-slate-500">
-                Vitamins
-              </p>
-            </div>
+            @empty
+            @endforelse
           </div>
           <div class="flex flex-col items-end gap-y-5 col-span-2">
             <h3 class="text-2xl font-bold text-indigo-950">
               Proof of Payment:
             </h3>
-            <img src="#" alt="" class="w-[300px] h-[400px] bg-red-400">
+            <img src="{{ Storage::url($productTransaction->proof) }}"
+              alt="{{ Storage::url($productTransaction->proof) }}" class="w-[300px] h-[400px]">
           </div>
         </div>
 
@@ -76,7 +86,7 @@
             </td>
             <td class="py-3">
               <h3 class="text-xl font-bold text-indigo-950">
-                Jl. apapapa
+                {{ $productTransaction->address }}
               </h3>
             </td>
           </tr>
@@ -87,7 +97,7 @@
             </td>
             <td class="py-3">
               <h3 class="text-xl font-bold text-indigo-950">
-                Majalengka
+                {{ $productTransaction->city }}
               </h3>
             </td>
           </tr>
@@ -98,7 +108,7 @@
             </td>
             <td class="py-3">
               <h3 class="text-xl font-bold text-indigo-950">
-                12345
+                {{ $productTransaction->post_code }}
               </h3>
             </td>
           </tr>
@@ -109,7 +119,7 @@
             </td>
             <td class="py-3">
               <h3 class="text-xl font-bold text-indigo-950">
-                0811111
+                {{ $productTransaction->phone_number }}
               </h3>
             </td>
           </tr>
@@ -120,7 +130,7 @@
             </td>
             <td class="py-3">
               <h3 class="text-xl font-bold text-indigo-950">
-                Dekat balai desa
+                {{ $productTransaction->notes }}
               </h3>
             </td>
           </tr>
