@@ -111,8 +111,9 @@
           /quantity
         </p>
       </div>
-      <form action="{{ route('carts.store', $product->id) }}" method="POST">
+      <form action="{{ route('carts.store') }}" method="POST">
         @csrf
+        <input type="text" name="product_id" id="product_id__" value="{{ $product->id }}" class="hidden">
         <button type="submit"
           class="inline-flex w-max text-white font-bold text-base bg-primary rounded-full px-[30px] py-3 justify-center items-center whitespace-nowrap">
           Add to Cart

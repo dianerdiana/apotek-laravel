@@ -30,10 +30,11 @@ class CartController extends Controller
   /**
    * Store a newly created resource in storage.
    */
-  public function store($productId)
+  public function store(Request $request)
   {
+    $product_id = $request->product_id;
     $user = Auth::user();
-    $existingCartItem = Cart::where('user_id', $user->id)->where('product_id', $productId)->first();
+    $existingCartItem = Cart::where('user_id', $user->id)->where('product_id', $product_id)->first();
 
     if ($existingCartItem) {
       return redirect()->route('carts.index');
@@ -44,7 +45,7 @@ class CartController extends Controller
     try {
       $cart = Cart::updateOrCreate([
         "user_id" => $user->id,
-        'product_id' => $productId
+        'product_id' => $product_id
       ]);
 
       $cart->save();
