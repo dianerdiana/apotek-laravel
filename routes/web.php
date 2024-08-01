@@ -2,14 +2,15 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FrontController;
+use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductTransactionController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [FrontController::class, 'index'])->name('front.index');
-Route::get('/search', [FrontController::class, 'search'])->name('front.search');
-Route::get('/details/{product:slug}', [FrontController::class, 'details'])->name('front.product.details');
+Route::get('/', [FrontendController::class, 'index'])->name('frontend.index');
+Route::get('/search', [FrontendController::class, 'search'])->name('frontend.search');
+Route::get('/details/{product:slug}', [FrontendController::class, 'details'])->name('frontend.product.details');
 
 Route::get('/dashboard', function () {
   return view('dashboard');
