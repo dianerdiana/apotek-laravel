@@ -20,6 +20,7 @@
 
   <script src="{{ asset('scripts/sliderConfig.js') }}" type="module"></script>
   <script src="{{ asset('scripts/searchProductListener.js') }}" type="module"></script>
+  <script src="{{ asset('scripts/global.js') }}"></script>
 </body>
 
 </html>
