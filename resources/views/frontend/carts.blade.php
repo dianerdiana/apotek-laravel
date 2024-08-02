@@ -170,7 +170,10 @@
           alt="">
       </button>
     </div>
-    <form action="" method="" class="p-6 bg-white rounded-3xl" id="deliveryForm">
+    <form enctype="multipart/form-data" action="{{ route('product_transactions.store') }}" method="POST"
+      class="p-6 bg-white rounded-3xl" id="deliveryForm">
+      @csrf
+
       <div class="flex flex-col gap-5">
         <!-- Address -->
         <div class="flex flex-col gap-2.5">
@@ -187,13 +190,13 @@
         <!-- Post Code -->
         <div class="flex flex-col gap-2.5">
           <label for="postcode" class="text-base font-semibold">Post Code</label>
-          <input type="number" name="postcode" id="postcode__"
+          <input type="number" name="post_code" id="postcode__"
             class="form-input bg-[url('{{ asset('assets/svgs/ic-house.svg') }}')]" value="22081882">
         </div>
         <!-- Phone Number -->
         <div class="flex flex-col gap-2.5">
           <label for="phonenumber" class="text-base font-semibold">Phone Number</label>
-          <input type="number" name="phonenumber" id="phonenumber__"
+          <input type="number" name="phone_number" id="phonenumber__"
             class="form-input bg-[url('{{ asset('assets/svgs/ic-phone.svg') }}')]" value="602192301923">
         </div>
         <!-- Add. Notes -->
@@ -206,32 +209,32 @@
         </div>
         <!-- Proof of Payment -->
         <div class="flex flex-col gap-2.5">
-          <label for="proof_of_payment" class="text-base font-semibold">Proof of Payment</label>
-          <input type="file" name="proof_of_payment" id="proof_of_payment__"
+          <label for="proof" class="text-base font-semibold">Proof of Payment</label>
+          <input type="file" name="proof" id="proof__"
             class="form-input bg-[url('{{ asset('assets/svgs/ic-folder-add.svg') }}')]">
         </div>
       </div>
       </div>
+
+      <!-- Floating grand total -->
+      <div
+        class="fixed z-50 bottom-[30px] bg-black rounded-3xl p-5 left-1/2 -translate-x-1/2 w-[calc(100dvw-32px)] max-w-[425px]">
+        <section class="flex items-center justify-between gap-5">
+          <div>
+            <p class="text-sm text-grey mb-0.5">
+              Grand Total
+            </p>
+            <p class="text-lg min-[350px]:text-2xl font-bold text-white" id="checkout-grand-total-price">
+            </p>
+          </div>
+          <button type="submit"
+            class="inline-flex items-center justify-center px-5 py-3 text-base font-bold text-white rounded-full w-max bg-primary whitespace-nowrap">
+            Confirm
+          </button>
+        </section>
+      </div>
     </form>
   </section>
-
-  <!-- Floating grand total -->
-  <div
-    class="fixed z-50 bottom-[30px] bg-black rounded-3xl p-5 left-1/2 -translate-x-1/2 w-[calc(100dvw-32px)] max-w-[425px]">
-    <section class="flex items-center justify-between gap-5">
-      <div>
-        <p class="text-sm text-grey mb-0.5">
-          Grand Total
-        </p>
-        <p class="text-lg min-[350px]:text-2xl font-bold text-white" id="checkout-grand-total-price">
-        </p>
-      </div>
-      <button type="submit"
-        class="inline-flex items-center justify-center px-5 py-3 text-base font-bold text-white rounded-full w-max bg-primary whitespace-nowrap">
-        Confirm
-      </button>
-    </section>
-  </div>
 
   <script>
     function calculatePrice() {
