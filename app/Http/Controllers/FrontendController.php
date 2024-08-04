@@ -36,4 +36,13 @@ class FrontendController extends Controller
       'keyword' => $keyword
     ]);
   }
+
+  public function category(Category $category)
+  {
+    $products = Product::where('category_id', $category->id)->with('category')->get();
+    return view('frontend.category', [
+      'products' => $products,
+      'category' => $category,
+    ]);
+  }
 }

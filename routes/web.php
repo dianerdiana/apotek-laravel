@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [FrontendController::class, 'index'])->name('frontend.index');
 Route::get('/search', [FrontendController::class, 'search'])->name('frontend.search');
 Route::get('/details/{product:slug}', [FrontendController::class, 'details'])->name('frontend.product.details');
+Route::get('/category/{category}', [FrontendController::class, 'category'])->name('frontend.product.category');
 
 Route::get('/dashboard', function () {
   return view('dashboard');
