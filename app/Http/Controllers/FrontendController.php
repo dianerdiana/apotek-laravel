@@ -25,4 +25,15 @@ class FrontendController extends Controller
       'product' => $product,
     ]);
   }
+
+  public function search(Request $request)
+  {
+    $keyword = $request->keyword;
+
+    $products = Product::where('name', 'LIKE', "%$keyword%")->get();
+    return view('frontend.search', [
+      'products' => $products,
+      'keyword' => $keyword
+    ]);
+  }
 }

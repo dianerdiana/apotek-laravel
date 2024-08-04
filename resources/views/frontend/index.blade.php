@@ -82,8 +82,8 @@
       We Provide <br>
       Best Medicines
     </p>
-    <form action="" method="POST" id="searchForm" class="w-full">
-      <input type="text" name="search" id="searchProduct"
+    <form action="{{ route('frontend.search') }}" method="GET" id="searchForm" class="w-full">
+      <input type="text" name="keyword" id="searchProduct"
         style="background-image: url('{{ asset('assets/svgs/ic-search.svg') }}')"
         class="block w-full py-3.5 pl-4 pr-10 rounded-[50px] font-semibold placeholder:text-grey placeholder:font-normal text-black text-base bg-no-repeat bg-[calc(100%-16px)] focus:ring-2 focus:ring-primary focus:outline-none focus:border-none transition-all"
         placeholder="Search by product name">
