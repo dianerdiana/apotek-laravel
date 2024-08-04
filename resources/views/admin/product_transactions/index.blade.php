@@ -12,18 +12,17 @@
       <div class="bg-white flex flex-col gap-y-3 overflow-hidden p-10 shadow-sm sm:rounded-lg">
         @forelse ($product_transactions as $productTransaction)
           <div class="item-card flex flex-row justify-between items-center">
-
             <div class="flex flex-row items-center gap-x-3">
-              <div>
+              <a href="{{ route('product_transactions.show', $productTransaction) }}">
                 <p class="text-base text-slate-500">
                   Total Transaksi
                 </p>
                 <h3 class="text-2xl font-bold text-indigo-950">
                   Rp. {{ $productTransaction->total_amount }}
                 </h3>
-              </div>
+              </a>
             </div>
-            <div>
+            <div class="hidden md:flex flex-col">
               <p class="text-base text-slate-500">
                 Tanggal
               </p>
@@ -40,7 +39,7 @@
                 <p class="text-white font-bold text-sm">Pending</p>
               </span>
             @endif
-            <div class="flex flex-row items-center gap-x-3">
+            <div class="hidden md:flex flex-row items-center gap-x-3">
               <a href="{{ route('product_transactions.show', $productTransaction) }}"
                 class="py-3 px-5 font-bold rounded-full text-white bg-indigo-700">
                 View Details
